@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
 
-export default function Header() {
+const Header: React.FC = () => {
   return (
     <>
       <header className='bg-orange-400 w-full shadow-lg text-white font-bold p-5 flex content-center'>
@@ -29,3 +29,5 @@ export default function Header() {
     </>
   )
 }
+
+export default Header;

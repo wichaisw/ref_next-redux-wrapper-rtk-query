@@ -7,8 +7,8 @@ import Layout from '../components/Layout';
 const Home: NextPage = () => {
   return (
     <Layout>
-      <div className={styles.container}>
-        Body
+      <div className='h-full'>
+        <div>BOdy</div>
       </div>
     </Layout>
   )
