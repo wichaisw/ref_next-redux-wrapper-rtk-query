@@ -8,9 +8,9 @@ type Props = {
 
 const Layout: React.FC<Props> = (props) => {
   return (
-    <div className='flex flex-col h-screen'>
+    <div className='flex flex-col min-h-screen flex-auto '>
       <Header />
-      <div className='flex h-full'>
+      <div className='flex min-h-full flex-auto'>
         <Sidebar />
         { props.children }
       </div>
