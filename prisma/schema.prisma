@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int          @id(map: "PK_User") @default(autoincrement())
+  first_name    String       @db.NVarChar(100)
+  last_name     String       @db.NVarChar(100)
+  date_of_birth DateTime?
+  address       String?
+  phone_number  String       @db.NVarChar(20)
+  c_level       Int          @default(0, map: "DF_User_c_level")
+  point         Int          @default(0, map: "DF_User_point")
+  created_at    DateTime?
+  created_by    Int?
+  updated_at    DateTime?
+  updated_by    Int?
+  instruments   Instrument[]
+  reviews       Review[]
+  transactions  BorrowingTransaction[]
+  roles         UserRole[]
+}
+
+model Instrument {
+  id          Int     @id(map: "PK_Instrument") @default(autoincrement())
+  type        String  @db.NVarChar(50)
+  price       Decimal @db.Decimal(10, 2)
+  name        String  @db.NVarChar(200)
+  info        String  @db.NVarChar(1000)
+  status      String  @db.NVarChar(50)
+  created_at  DateTime?
+  created_by  Int?
+  updated_at  DateTime?
+  updated_by  Int?
+  user_id     Int
+  user        User    @relation(fields: [user_id], references: [id], onDelete: NoAction)
+  reviews     Review[]
+}
+
+model BorrowingTransaction {
+  id           Int       @id(map: "PK_BorrowingTransaction") @default(autoincrement())
+  is_lost      Boolean   @default(false, map: "DF_borrowing_transaction_is_lost")
+  price        Decimal   @db.Decimal(10, 2)
+  date         DateTime
+  overdue_date DateTime?
+  defect_image String?   @db.NVarChar(500)
+  defect_text  String?   @db.NVarChar(Max)
+  created_at   DateTime?
+  created_by   Int?
+  updated_at   DateTime?
+  updated_by   Int?
+  user_id      Int
+  user         User    @relation(fields: [user_id], references: [id], onDelete: NoAction)
+}
+
+model Review {
+  id         Int       @id(map: "PK_Review") @default(autoincrement())
+  star       Int
+  text       String?   @db.NVarChar(Max)
+  image_url  String?   @db.NVarChar(500)
+  video_url  String?   @db.NVarChar(500)
+  created_at DateTime?
+  created_by Int?
+  updated_at DateTime?
+  updated_by Int?
+  user_id    Int
+  user       User    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+  instrument_id Int
+  instrument    Instrument @relation(fields: [instrument_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Role {
+  id          Int     @id(map: "PK_Role") @default(autoincrement())
+  name        String? @db.NVarChar(50)
+  created_at  DateTime?
+  created_by  Int?
+  updated_at  DateTime?
+  updated_by  Int?
+  users       UserRole[]
+}
+
+model UserRole {
+  user_id     Int
+  user        User  @relation(fields: [user_id], references: [id])
+  role_id     Int
+  role        Role  @relation(fields: [role_id], references: [id])
+  created_at  DateTime?
+  created_by  Int?
+  updated_at  DateTime?
+  updated_by  Int?
+
+  @@id([user_id, role_id])
+}
