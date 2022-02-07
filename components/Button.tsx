@@ -9,8 +9,8 @@ interface IButtonProps {
 
 const Button: React.FC<IButtonProps> = ({ onClick, href, children, style }) => {
   return (
-    <button className={`px-4 mx-2 rounded ${style}`}>
-      <a href={href} onClick={onClick}>children</a>
+    <button className={`px-4 mx-2 rounded font-bold ${style} `}>
+      <a href={href} onClick={onClick}>{children}</a>
     </button>
   );
 }

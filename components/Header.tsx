@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './Button';
+import { buttonStyle } from '../utils/button-style';
 
 const Header: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Header: React.FC = () => {
           <li className='flex'>logo</li>
           <li className='flex w-6/12 px-2'>
             <input type="text" id='search' className='w-full rounded text-black p-1'/>
-            <Button style='bg-orange-700 shadow-lg shadow-inner shadow-orange-600 text-white font-bold' onClick={() => alert('search')}>Search</Button>
+            <Button style={`${buttonStyle.orange}`} onClick={() => alert('search')}>Search</Button>
           </li>          
         </ul>
       </header>

@@ -9,17 +9,17 @@ datasource db {
 
 model User {
   id            Int          @id(map: "PK_User") @default(autoincrement())
-  first_name    String       @db.NVarChar(100)
-  last_name     String       @db.NVarChar(100)
-  date_of_birth DateTime?
+  firstName    String       @db.NVarChar(100)
+  lastName     String       @db.NVarChar(100)
+  dateOfBirth DateTime?
   address       String?
-  phone_number  String       @db.NVarChar(20)
-  c_level       Int          @default(0, map: "DF_User_c_level")
+  phoneNumber  String       @db.NVarChar(20)
+  userLevel    Int          @default(0, map: "DF_User_userLevel")
   point         Int          @default(0, map: "DF_User_point")
-  created_at    DateTime?
-  created_by    Int?
-  updated_at    DateTime?
-  updated_by    Int?
+  createdAt    DateTime?
+  createdBy    Int?
+  updatedAt    DateTime?
+  updatedBy    Int?
   instruments   Instrument[]
   reviews       Review[]
   transactions  BorrowingTransaction[]
@@ -31,68 +31,81 @@ model Instrument {
   type        String  @db.NVarChar(50)
   price       Decimal @db.Decimal(10, 2)
   name        String  @db.NVarChar(200)
+  brand       String  @db.NVarChar(50)
   info        String  @db.NVarChar(1000)
-  status      String  @db.NVarChar(50)
-  created_at  DateTime?
-  created_by  Int?
-  updated_at  DateTime?
-  updated_by  Int?
-  user_id     Int
-  user        User    @relation(fields: [user_id], references: [id], onDelete: NoAction)
+  status      String  @default("N'available'", map: "DF_Instrument_status") @db.NVarChar(50)
+  createdAt  DateTime?
+  createdBy  Int?
+  updatedAt  DateTime?
+  updatedBy  Int?
+  userId     Int?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: NoAction)
+  productImage productImage[]
   reviews     Review[]
+}
+
+model productImage {
+  id          Int     @id(map: "PK_ProductImage") @default(autoincrement())
+  imageUrl    String  @db.NVarChar(1000)
+  createdAt  DateTime?
+  createdBy  Int?
+  updatedAt  DateTime?
+  updatedBy  Int?
+  instrumentId Int   
+  instrument  Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
 }
 
 model BorrowingTransaction {
   id           Int       @id(map: "PK_BorrowingTransaction") @default(autoincrement())
-  is_lost      Boolean   @default(false, map: "DF_borrowing_transaction_is_lost")
+  isLost      Boolean   @default(false, map: "DF_borrowing_transaction_is_lost")
   price        Decimal   @db.Decimal(10, 2)
   date         DateTime
   overdue_date DateTime?
-  defect_image String?   @db.NVarChar(500)
-  defect_text  String?   @db.NVarChar(Max)
-  created_at   DateTime?
-  created_by   Int?
-  updated_at   DateTime?
-  updated_by   Int?
-  user_id      Int
-  user         User    @relation(fields: [user_id], references: [id], onDelete: NoAction)
+  defectImage String?   @db.NVarChar(500)
+  defectText  String?   @db.NVarChar(Max)
+  createdAt   DateTime?
+  createdBy   Int?
+  updatedAt   DateTime?
+  updatedBy   Int?
+  userId      Int
+  user         User    @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
 model Review {
   id         Int       @id(map: "PK_Review") @default(autoincrement())
   star       Int
   text       String?   @db.NVarChar(Max)
-  image_url  String?   @db.NVarChar(500)
-  video_url  String?   @db.NVarChar(500)
-  created_at DateTime?
-  created_by Int?
-  updated_at DateTime?
-  updated_by Int?
-  user_id    Int
-  user       User    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
-  instrument_id Int
-  instrument    Instrument @relation(fields: [instrument_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  imageUrl  String?   @db.NVarChar(500)
+  videoUrl  String?   @db.NVarChar(500)
+  createdAt DateTime?
+  createdBy Int?
+  updatedAt DateTime?
+  updatedBy Int?
+  userId    Int
+  user       User    @relation(fields: [userId], references: [id], onUpdate: NoAction)
+  instrumentId Int
+  instrument    Instrument @relation(fields: [instrumentId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
 
 model Role {
   id          Int     @id(map: "PK_Role") @default(autoincrement())
   name        String? @db.NVarChar(50)
-  created_at  DateTime?
-  created_by  Int?
-  updated_at  DateTime?
-  updated_by  Int?
+  createdAt  DateTime?
+  createdBy  Int?
+  updatedAt  DateTime?
+  updatedBy  Int?
   users       UserRole[]
 }
 
 model UserRole {
-  user_id     Int
-  user        User  @relation(fields: [user_id], references: [id])
-  role_id     Int
-  role        Role  @relation(fields: [role_id], references: [id])
-  created_at  DateTime?
-  created_by  Int?
-  updated_at  DateTime?
-  updated_by  Int?
+  userId     Int
+  user        User  @relation(fields: [userId], references: [id])
+  roleId     Int
+  role        Role  @relation(fields: [roleId], references: [id])
+  createdAt  DateTime?
+  createdBy  Int?
+  updatedAt  DateTime?
+  updatedBy  Int?
 
-  @@id([user_id, role_id])
+  @@id([userId, roleId])
 }
