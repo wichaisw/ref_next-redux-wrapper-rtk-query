@@ -3,14 +3,15 @@ import { useForm } from "react-hook-form";
 import { IInstrument } from '../../../interfaces/instrument';
 import Button from '../../../components/Button';
 import { buttonStyle } from '../../../utils/button-style';
+import { ErrorMessage } from "@hookform/error-message";
 
 const Add: React.FC = () => {
-  const { register, setValue, handleSubmit, formState: { errors } } = useForm<IInstrument>();
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm<IInstrument>({ criteriaMode: "all" });
   const onSubmit = handleSubmit(data => console.log(data));
 
   return (
     <main className='flex flex-col p-4 w-full md:items-center md:pr-40'>
-      <form className="w-full max-w-sm" onSubmit={onSubmit}>
+      <form className="w-full max-w-md" onSubmit={onSubmit}>
 
         {/* ANCHOR Name */}
         <div className="md:flex md:items-center mb-6">
@@ -24,7 +25,24 @@ const Add: React.FC = () => {
               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500" 
               id="name" 
               type="text" 
-              {...register('name')}
+              {...register('name', { 
+                required: 'This is required.', 
+                maxLength: {
+                  value: 200,
+                  message: 'This input exceed max length.'
+                } 
+              })}
+              />
+            <ErrorMessage 
+              errors={errors} 
+              name="name"
+              render={({ messages }) => {
+                return messages
+                  ? Object.entries(messages).map(([type, message]) => (
+                      <p className='text-red-500' key={type}>{message}</p>
+                    ))
+                  : null;
+              }}
             />
           </div>
         </div>
@@ -40,10 +58,10 @@ const Add: React.FC = () => {
             <select 
               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500" 
               id="type"
-              {...register('type')}
+              {...register('type', {required: true})}
             >
+              <option value="">Select instrument type</option>
               <optgroup label="Guitar">
-                <option value="acoustic-guitar">Acoustic Guitar</option>
                 <option value="classic-guitar">Classic Guitar</option>
                 <option value="electric-guitar">Electric Guitar</option>
               </optgroup>
@@ -72,6 +90,7 @@ const Add: React.FC = () => {
                 <option value="chimes">Chimes</option>
               </optgroup>
             </select>
+            <ErrorMessage errors={errors} name="type" render={message => <p className='text-red-500'>This is required.</p>} />
           </div>
         </div>
 
@@ -88,7 +107,24 @@ const Add: React.FC = () => {
               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500" 
               id="brand" 
               type="text" 
-              {...register('brand')}
+              {...register('brand', { 
+                required: 'This is required.', 
+                maxLength: {
+                  value: 50,
+                  message: 'This input exceed max length.'
+                } 
+              })}
+            />
+            <ErrorMessage 
+              errors={errors} 
+              name="brand"
+              render={({ messages }) => {
+                return messages
+                  ? Object.entries(messages).map(([type, message]) => (
+                      <p className='text-red-500' key={type}>{message}</p>
+                    ))
+                  : null;
+              }}
             />
           </div>
         </div>
@@ -107,8 +143,9 @@ const Add: React.FC = () => {
               type="number" 
               min={0}
               step={0.50}
-              {...register('price')}
+              {...register('price', { required: 'This is required.' })}
             />
+            <ErrorMessage errors={errors} name='price' render={message => <p className='text-red-500'>This is required.</p>} />
           </div>
         </div>
 
@@ -124,10 +161,26 @@ const Add: React.FC = () => {
             <textarea 
               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500" 
               id="info"
-              rows={4}
-              {...register('info')}
-            >
-            </textarea>
+              rows={5}
+              {...register('info', { 
+                required: 'This is required.', 
+                maxLength: {
+                  value: 1000,
+                  message: 'This input exceed max length.'
+                } 
+              })}
+            />
+            <ErrorMessage 
+              errors={errors} 
+              name="info"
+              render={({ messages }) => {
+                return messages
+                  ? Object.entries(messages).map(([type, message]) => (
+                      <p className='text-red-500' key={type}>{message}</p>
+                    ))
+                  : null;
+              }}
+            />
           </div>
         </div>
 
