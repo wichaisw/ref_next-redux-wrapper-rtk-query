@@ -8,7 +8,7 @@ const Header: React.FC = () => {
       <header className='bg-orange-400 w-full shadow-lg text-white font-bold p-5 flex content-center absolute'>
         <ul className='flex justify-between min-h-full w-full content-center'>
           <li className='flex'>logo</li>
-          <li className='flex w-6/12 px-2'>
+          <li className='flex w-6/12 px-2 space-x-2'>
             <input type="text" id='search' className='w-full rounded text-black p-1'/>
             <Button style={buttonStyle.orange} onClick={() => alert('search')}>Search</Button>
           </li>          

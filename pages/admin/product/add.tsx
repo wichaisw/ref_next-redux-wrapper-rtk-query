@@ -131,16 +131,21 @@ const Add: React.FC = () => {
           </div>
         </div>
 
-        <Button 
-          style={`${buttonStyle.orange}`}
-          onClick={() => {
-            // setValue("lastName", "luo"); // ✅
-            // setValue("firstName", true); // ❌: true is not string
-            // errors.bill; // ❌: property bill does not exist
-          }}
-        >
-          Create
-        </Button>
+        <div className='md:flex md:items-center w-full'>
+          <div className="md:w-1/3"></div>
+          <div className="md:w-2/3">
+            <Button 
+              style={buttonStyle.orange}
+              onClick={() => {
+                // setValue("lastName", "luo"); // ✅
+                // setValue("firstName", true); // ❌: true is not string
+                // errors.bill; // ❌: property bill does not exist
+              }}
+            >
+              Create
+            </Button>
+          </div>
+        </div>
       </form>
     </main>
   )
