@@ -1,7 +1,7 @@
 import React, { ReactComponentElement } from 'react';
 
 interface IButtonProps {
-  onClick?: React.MouseEventHandler<unknown>,
+  onClick?: React.MouseEventHandler<HTMLElement>,
   children: string | React.ComponentType<any>,
   href?: string
   style: string

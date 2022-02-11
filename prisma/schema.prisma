@@ -33,7 +33,7 @@ model Instrument {
   name        String  @db.NVarChar(200)
   brand       String  @db.NVarChar(50)
   info        String  @db.NVarChar(1000)
-  status      String  @default("N'available'", map: "DF_Instrument_status") @db.NVarChar(50)
+  status      String  @default("available", map: "DF_Instrument_status") @db.NVarChar(50)
   createdAt  DateTime?
   createdBy  Int?
   updatedAt  DateTime?

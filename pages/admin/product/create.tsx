@@ -5,9 +5,21 @@ import Button from '../../../components/Button';
 import { buttonStyle } from '../../../utils/button-style';
 import { ErrorMessage } from "@hookform/error-message";
 
-const Add: React.FC = () => {
-  const { register, setValue, handleSubmit, formState: { errors } } = useForm<IInstrument>({ criteriaMode: "all" });
-  const onSubmit = handleSubmit(data => console.log(data));
+const Create: React.FC = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<IInstrument>({ criteriaMode: "all" });
+  const onSubmit = handleSubmit(async (data: IInstrument) => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/instruments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+
+      console.log(res);
+    } catch (error) {
+      console.error(error)
+    }
+  });
 
   return (
     <main className='flex flex-col p-4 w-full md:items-center md:pr-40'>
@@ -62,6 +74,7 @@ const Add: React.FC = () => {
             >
               <option value="">Select instrument type</option>
               <optgroup label="Guitar">
+                <option value="acoustic-guitar">Acoustic Guitar</option>
                 <option value="classic-guitar">Classic Guitar</option>
                 <option value="electric-guitar">Electric Guitar</option>
               </optgroup>
@@ -204,4 +217,4 @@ const Add: React.FC = () => {
   )
 }
 
-export default Add;
+export default Create;
