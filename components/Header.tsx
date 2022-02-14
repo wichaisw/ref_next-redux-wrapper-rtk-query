@@ -5,7 +5,7 @@ import { buttonStyle } from '../utils/button-style';
 const Header: React.FC = () => {
   return (
     <>
-      <header className='bg-orange-400 w-full shadow-lg text-white font-bold p-5 flex content-center absolute'>
+      <header className='bg-orange-400 w-full shadow-lg text-white font-bold p-5 flex content-center relative'>
         <ul className='flex justify-between min-h-full w-full content-center'>
           <li className='flex'>logo</li>
           <li className='flex w-6/12 px-2 space-x-2'>
@@ -14,7 +14,7 @@ const Header: React.FC = () => {
           </li>          
         </ul>
       </header>
-      <nav className='flex bg-white shadow justify-between '>
+      <nav className='flex bg-white shadow justify-between relative'>
         <div className='p-2'>
           left section
         </div>

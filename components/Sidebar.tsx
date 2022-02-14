@@ -3,8 +3,8 @@ import { Disclosure } from '@headlessui/react'
 
 const Sidebar: React.FC = () => {
   return (
-    <aside className='flex flex-col w-48 bg-orange-500 float-left relative top-8 bottom-0'>
-      <nav className='sticky inset-y-0'>
+    <aside className='flex flex-col w-48 bg-orange-500 float-left relative top-0 bottom-0'>
+      <nav className='sticky inset-y-0 overflow-hidden'>
         {/* -- ANCHOR Guitar -- */}
         <Disclosure>
           {({ open: Boolean }) => (
