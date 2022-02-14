@@ -16,6 +16,7 @@ const instrumentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // POST /api/instruments
   async function createInstrument() {
+    console.log('createInstrument')
     const { type,  price, name, brand, info } = req.body;
 
     try {      

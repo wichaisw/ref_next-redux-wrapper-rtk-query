@@ -1,6 +1,5 @@
 export interface IImages {
   id?: number;
-  imageUrl?: string;
-  images?: File[]
+  imageUrl: string;
   instrumentId: number;
 }
