@@ -1,9 +1,11 @@
 import { NextApiRequest, NextApiResponse} from 'next'
-import prisma from '../../lib/prisma';
+import prisma from '../../../lib/prisma';
+import { IImages } from '../../../interfaces/Images';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const instrumentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch(req.method) {
     case 'GET':
+      // TODO get all
       return 
     case 'POST':
       return createInstrument();
@@ -12,10 +14,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 
-  // GET /api/instruments
+  // POST /api/instruments
   async function createInstrument() {
     const { type,  price, name, brand, info } = req.body;
-    try {
+
+    try {      
       const instrument = await prisma.instrument.create({
         data: {
           type,
@@ -33,4 +36,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default handler;
+export default instrumentHandler;

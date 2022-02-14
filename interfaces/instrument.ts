@@ -5,5 +5,8 @@ export interface IInstrument {
   brand: string;
   price: string;
   info: string;
+  status?: string;
+  images?: FileList;
+  imagesFormData?: any
   imageUrl: string[];
 }

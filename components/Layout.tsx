@@ -12,7 +12,7 @@ const Layout: React.FC<Props> = (props) => {
       <Header />
       <div className='flex min-h-full flex-auto'>
         <Sidebar />
-        <div className='w-full m-2'>
+        <div className='w-full m-4'>
           { props.children }
         </div>
       </div>
