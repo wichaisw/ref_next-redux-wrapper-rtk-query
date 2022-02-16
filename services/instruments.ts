@@ -5,7 +5,7 @@ export const instrumentApi = createApi({
   reducerPath: '',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/' }),
   endpoints: (builder) => ({
-    getAllInstrument: builder.query<IInstrument, string>({
+    getAllInstrument: builder.query<IInstrument[], void>({
       query: () => 'instruments',
     }),
     getInstrumentById: builder.query<IInstrument, number>({
