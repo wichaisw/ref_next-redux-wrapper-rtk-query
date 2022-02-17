@@ -50,6 +50,7 @@ const Product: React.FC = () => {
       data.append('upload_preset', 'music-inst');
 
       try {
+        // TODO singed upload
         const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CNAME}/image/upload`, {
           method: 'POST',
           body: data,

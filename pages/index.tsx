@@ -11,7 +11,28 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      {error ? (
+      {(() => {
+        if(error) return <>{error}</>
+        if(isLoading) return <>{isLoading}</>
+        if(data) {
+          return (
+            <main>
+              {data.map((instrument, index) => {
+                // TODO product card
+                return <div key={instrument.id}>
+                  {instrument.name}
+                  {instrument.type}
+                  {instrument.brand}
+                  {instrument.price}
+                  {instrument.info}
+                </div>
+              })}
+            </main>
+          )
+        }
+      })() }
+
+      {/* {error ? (
         <>Error</>
       ) : isLoading ? (
         <>Loading...</>
@@ -19,7 +40,7 @@ const Home: NextPage = () => {
         <main>
           {data.map((instrument, id) => {
             // TODO product card
-            return <div>
+            return <div key={instrument.id}>
               {instrument.name}
               {instrument.type}
               {instrument.brand}
@@ -28,7 +49,7 @@ const Home: NextPage = () => {
             </div>
           })}
         </main>
-      ) : null}
+      ) : null} */}
         
     </Layout>
   )

@@ -5,7 +5,6 @@ import { IImages } from '../../../interfaces/Images';
 const instrumentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch(req.method) {
     case 'GET':
-      // TODO get all
       return retrieveInstruments();
     case 'POST':
       return createInstrument();

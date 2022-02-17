@@ -1,9 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseSplitApi } from './baseApi';
 import { IInstrument } from '../interfaces/instrument';
 
-export const instrumentApi = createApi({
-  reducerPath: '',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/' }),
+export const instrumentApi = baseSplitApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllInstrument: builder.query<IInstrument[], void>({
       query: () => 'instruments',
@@ -12,6 +11,7 @@ export const instrumentApi = createApi({
       query: (id) => `instruments/${id}`,
     })
   }),
+  overrideExisting: false,
 })
 
 export const {
