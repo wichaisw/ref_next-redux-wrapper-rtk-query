@@ -14,7 +14,15 @@ export const instrumentApi = baseSplitApi.injectEndpoints({
   overrideExisting: false,
 })
 
+// Export hooks for usage in functional components
 export const {
   useGetAllInstrumentQuery,
   useGetInstrumentByIdQuery,
+  util: { getRunningOperationPromises },
 } = instrumentApi
+
+// export endpoints for use in SSR
+export const { 
+  getAllInstrument, 
+  getInstrumentById 
+} = instrumentApi.endpoints;

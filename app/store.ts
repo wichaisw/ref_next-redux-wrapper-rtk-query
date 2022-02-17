@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { instrumentApi } from '../services/instruments';
+import { createWrapper } from "next-redux-wrapper";
 
-export const store = configureStore({
+export const store = () => configureStore({
   reducer: {
     [instrumentApi.reducerPath]: instrumentApi.reducer,
   },
@@ -12,8 +13,11 @@ export const store = configureStore({
 })
 
 // required for refetchOnFocus/refetchOnReconnect behaviors
-setupListeners(store.dispatch);
+// setupListeners(store().dispatch);
 
-export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof store>;
+export type RootState = ReturnType<AppStore['getState']>;
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = AppStore['dispatch'];
+
+export const wrapper = createWrapper<AppStore>(store, { debug: false});
